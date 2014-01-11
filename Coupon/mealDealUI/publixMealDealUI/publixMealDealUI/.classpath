@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="assets"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="libs/gdx.jar" sourcepath="libs/gdx-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/bodyeditor-loader.jar" sourcepath="libs/bodyeditor-loader-sources.jar"/>
+	<classpathentry kind="lib" path="libs/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="libs/kryonet-debug-2.12-all.jar"/>
+	<classpathentry kind="lib" path="libs/tween-engine-api-sources.jar"/>
+	<classpathentry kind="lib" path="libs/tween-engine-api.jar" sourcepath="libs/tween-engine-api-sources.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

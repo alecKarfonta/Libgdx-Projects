@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="assets"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PhysicsPlay"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gdx-backend-gwt-sources.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gdx-backend-gwt.jar" sourcepath="war/WEB-INF/lib/gdx-backend-gwt-sources.jar"/>
+	<classpathentry kind="lib" path="/PhysicsPlay/libs/bodyeditor-loader-sources.jar"/>
+	<classpathentry kind="lib" path="/PhysicsPlay/libs/bodyeditor-loader.jar" sourcepath="/PhysicsPlay/libs/bodyeditor-loader-sources.jar"/>
+	<classpathentry kind="lib" path="/PhysicsPlay/libs/gdx-sources.jar"/>
+	<classpathentry kind="lib" path="/PhysicsPlay/libs/gdx.jar" sourcepath="/PhysicsPlay/libs/gdx-sources.jar"/>
+	<classpathentry kind="lib" path="/PhysicsPlay/libs/tween-engine-api-sources.jar"/>
+	<classpathentry kind="lib" path="/PhysicsPlay/libs/tween-engine-api.jar" sourcepath="/PhysicsPlay/libs/tween-engine-api-sources.jar"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>

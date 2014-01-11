@@ -1,0 +1,513 @@
+[{lighthouseNew={fireBeacon=function (params) {
+            if (typeof params === 'undefined') {
+                return;
+            }
+            queryString = generateLighthouseBeaconURL(params);
+            new Image().src = '//lh.coupons.net/bcn' + queryString;
+        }}, clipall={openDialog=function b(){var l=APP_COUPONSINC.contextData,k={controller:l.controller,action:"confirm
+ClipAll",pid:l.pid,nid:l.nid,zid:l.zid};if(APP_COUPONSINC.zipcode){k.zip=APP_COUPONSINC.zipcode.getZipCode()}e.ajax({url
+:"/ajax/gallery/",data:k,dataType:"json",success:g})}}, giveaway={onReady=function h(i){d=i||this;b()}}, savingsmeter={u
+pdate=function d(q,r){var m=10,p=g(".mod-savingsmeter"),s=g(".bar",p),o=s.innerWidth(),l=p.data("available-count"),t=0,n
+=g(".savings-bar",p);if(q>=0){if(q<=m){t=q/m*o/2;n.html(APP_COUPONSINC.formatCurrency(r)).css("width",t+"px");if(q===0){
+n.addClass("clipped-none")}else{n.removeClass("clipped-none")}}else{t=(1+(q-m)/(l-m))*o/2;n.html(APP_COUPONSINC.formatCu
+rrency(r)).css("width",t+"px")}}else{n.css("width",0)}}, onReady=function i(l){c=l||this;j.bind("couponsinc:clipped",a);
+j.bind("couponsinc:unclipped",a);c.initialize()}, initialize=function f(){if(APP_COUPONSINC.couponcarrier&&APP_COUPONSIN
+C.couponcarrier.getCarrierInitStatus){g.when(APP_COUPONSINC.couponcarrier.getCarrierInitStatus()).then(k)}}}, emailsignu
+p={handleopenPopup=function p(r){j.ajax({url:"/ajax/emailsignup/",type:"POST",dataType:"html",data:j.extend({action:"ren
+derEmailSignup"},g),success:m})}, onReady=function l(r){d=r||this;b()}}, facebook={init=function b(e){if(typeof FB==="un
+defined"){var d={appId:APP_COUPONSINC.contextData.fbAppId,status:true,cookie:true,xfbml:false},c=document.location.proto
+col+"//connect.facebook.net/en_US/all.js";window.fbAsyncInit=function(){FB.init(d)};APP_COUPONSINC.loader.getScript(c,e)
+}else{if(e){e()}}}}, getSubCookie=function (c,d){if(CI_jQuery.cookie(c)){var a=CI_jQuery.cookie(c).split("&"),b;for(b=0;
+b<a.length;b+=1){if(d===a[b].split("=")[0]){return a[b].split("=")[1]}}}return null}, appendParameterToURL=function (b,a
+){var c=(typeof a==="undefined")?location.search:a;c+=((c.split("?")[1])?"&":"?")+b;return c}, sharepodbyemail={onOpen=f
+unction c(){h()}}, signinsignuplinks={handleClick=function h(l){var m=f(l.target);if(m.hasClass("signoff")||m.hasClass("
+imnot")){l.preventDefault();b.doSignOff()}}, setupEventHandlers=function g(){i.bind("click",b.handleClick);if(typeof FB=
+=="undefined"){APP_COUPONSINC.facebook.init()}}, onReady=function j(l){b=l||this;b.setupEventHandlers()}, doSignOff=func
+tion a(){var n=APP_COUPONSINC.getSubCookie("UserInfo","euid"),m=APP_COUPONSINC.contextData,l={pid:m.pid,nid:m.nid,zid:m.
+zid};if(n&&n.length>0){FB.logout(function(o){})}f.ajax({url:"/sign-out",type:"POST",dataType:"json",data:l,success:d})}}
+, hero={onLoad=function j(o){m()}}, loader={getScript=function a(l,m){var i=document.getElementsByTagName("body")[0],k=d
+ocument.createElement("script"),j=false;k.src=l;k.onload=k.onreadystatechange=function(){if(!j&&(!this.readyState||this.
+readyState==="loaded"||this.readyState==="complete")){j=true;if(m){m()}k.onload=k.onreadystatechange=null}};i.appendChil
+d(k);return undefined}, load=function d(){var l=APP_COUPONSINC.contextData.deferred.css,i=l["default"],j=APP_COUPONSINC.
+contextData.deferred.js,k=j["default"];if(i&&i.length>0){e(i);if(f!=="default"&&l[f]){e(l[f])}}if(k&&k.length>0){h(k,0,f
+unction(){if(f!=="default"&&j[f]){h(j[f],0,null)}})}}}, checkBCookie=function (){var c,b,a,e,f,d;if(typeof CI_jQuery.coo
+kie==="undefined"){APP_COUPONSINC.log("needed CI_jQuery.cookie, but did not have it in couponsinc.js on page: "+window.l
+ocation.href);return}if(typeof CI_jQuery.jStorage==="undefined"){APP_COUPONSINC.log("needed CI_jQuery.jStorage, but did 
+not have it in couponsinc.js on page: "+window.location.href);return}if(typeof APP_COUPONSINC.lighthouse==="undefined"){
+APP_COUPONSINC.log("needed APP_COUPONSINC.lighthouse but did not have it in couponsinc.js on page: "+window.location.hre
+f);return}c=CI_jQuery.cookie("B");b=CI_jQuery.jStorage.get("BCookie");if(c===null){APP_COUPONSINC.log("user had "+docume
+nt.cookie.split(";").length+" cookies of length "+document.cookie.length+" and was not issued a B Cookie on this page: "
++window.location.href);return}if(b===null){CI_jQuery.jStorage.set("BCookie",{data:c,ts:APP_COUPONSINC.getSubCookie("B","
+t")});APP_COUPONSINC.lighthouse.fireBeacon({action:"bc",did:APP_COUPONSINC.getSubCookie("UserInfo","mac")});return}b=b.d
+ata;f=APP_COUPONSINC.getSubCookie("B","t");d=CI_jQuery.jStorage.get("BCookie").ts;a=APP_COUPONSINC.getSubCookie("B","i")
+;e=CI_jQuery.jStorage.get("BCookie").data.match(/i=(.*?)&/)[1];if(d>f){APP_COUPONSINC.log("saw B Cookie with older times
+tamp than what I stored on page: "+window.location.href);return}if((d<f)&&(a===e)){CI_jQuery.jStorage.set("BCookie",{dat
+a:c,ts:APP_COUPONSINC.getSubCookie("B","t")});APP_COUPONSINC.lighthouse.fireBeacon({action:"br",did:APP_COUPONSINC.getSu
+bCookie("UserInfo","mac")});return}if(a!==e){CI_jQuery.jStorage.set("BCookie",{data:c,ts:APP_COUPONSINC.getSubCookie("B"
+,"t")});APP_COUPONSINC.lighthouse.fireBeacon({action:"bc",did:APP_COUPONSINC.getSubCookie("UserInfo","mac")});return}}, 
+getCidsInUrl=function (){var a=APP_COUPONSINC.getURLParameter("cid");return a?a.split("~"):[]}, setSubCookie=function (d
+,f,g,e){var a=CI_jQuery.cookie(d)?CI_jQuery.cookie(d).split("&"):[],c=false,b;for(b=0;b<a.length;b+=1){if(f===a[b].split
+("=")[0]){a[b]=f+"="+g;c=true}}if(!c){a.push(f+"="+g)}CI_jQuery.cookie(d,a.join("&"),e)}, log=function (b){var a=APP_COU
+PONSINC.contextData;CI_jQuery.ajax({url:"/ajax/log",type:"post",data:{msg:Base64.encode(b),userCheck:a.userCheck,pid:a.p
+id,nid:a.nid,zid:a.zid},cache:false})}, cookie={setTAFInfo=function d(i,h){c.email=i;c.name=h;b()}, returnClippedPodIds=
+function d(p){var q=[];if(p==="local"){q=c.localClippedCoupons.data}else{if(p==="all"){j.each(c,function(s,r){q=q.concat
+(r.data)})}else{if(p==="zips"){q=a.data}else{q=c.regularClippedCoupons.data}}}return q.slice()}}, userinit={updateUserIn
+formation=function c(r,m){var n=APP_COUPONSINC.contextData,q=r.did||0,o=r.printersupport||0,p="/ajax/init",l={controller
+:n.controller,pathName:n.pathName,did:q,isPrinterSupported:o,justCookies:m,pid:n.pid,nid:n.nid,zid:n.zid};if(APP_COUPONS
+INC.clippedCouponStorage){l.local=APP_COUPONSINC.clippedCouponStorage.get("local").join(",");l.coupons=APP_COUPONSINC.cl
+ippedCouponStorage.get("coupons").join(",");l.zipcodes=APP_COUPONSINC.clippedCouponStorage.get("zips").join(",")}if(n.cu
+rrentCategoryID!=="0"){l.catid=n.currentCategoryID}if(APP_COUPONSINC.zipcode){l.zip=APP_COUPONSINC.zipcode.getZipCode()}
+if(n.campaignName!==""){l.campaignName=n.campaignName;l.campaignType=n.campaignType}if(APP_COUPONSINC.gallery&&APP_COUPO
+NSINC.gallery.getCurrentStoreName){l.storename=APP_COUPONSINC.gallery.getCurrentStoreName()}e.ajax({url:p+window.locatio
+n.search,type:"post",dataType:"json",data:l,context:{updateCookiesOnly:m},timeout:5000,error:function(t,s,u){APP_COUPONS
+INC.log("updateUserInformation: error "+s+", POST="+JSON.stringify(l));b("failed");h()},success:APP_COUPONSINC.userinit.
+initializeUserSuccess})}, initializeUser=function k(){var l=f();if(l===false){b("unnecessary");h()}else{j()}}, initializ
+eUserSuccess=function g(n,l,m){APP_COUPONSINC.contextData.userCheck=n.UserToken;n.updateCookiesOnly=this.updateCookiesOn
+ly;i.trigger("couponsinc:userinitialized",n);h()}}, clippedCouponStorage={clear=function l(p){if((typeof p==="undefined"
+)&&(typeof APP_COUPONSINC.contextData.controller!=="undefined")){p=APP_COUPONSINC.contextData.controller}switch(p){case"
+coupons":case"regular":c.regularClippedCoupons.data=[];c.regularClippedCoupons.all=false;break;case"local":c.localClippe
+dCoupons.data=[];c.localClippedCoupons.all=false;break;default:j.each(c,function(r,q){q.data=[];q.all=false});a.data=[];
+break}f();e(p,false)}, get=function d(p){var q=[];if(p==="local"){q=c.localClippedCoupons.data}else{if(p==="all"){j.each
+(c,function(s,r){q=q.concat(r.data)})}else{if(p==="zips"){q=a.data}else{q=c.regularClippedCoupons.data}}}return q.slice(
+)}, remove=function i(s,r){var p,q;if(typeof r==="undefined"||r==="regular"){r="regular";p=c.regularClippedCoupons}else{
+if(r==="local"){p=c.localClippedCoupons}else{return}}q=p.data;if(typeof s==="string"){if(m(s,r)){q.splice(j.inArray(s,q)
+,1)}}else{if(s.length>0){j.each(s,function(t,u){if(m(u,r)){q.splice(j.inArray(u,q),1)}})}}f()}, add=function o(r,q){var 
+p;if(typeof q==="undefined"||q==="regular"){q="regular";p=c.regularClippedCoupons}else{if(q==="local"){p=c.localClippedC
+oupons}else{return}}if(typeof r==="string"){if(!m(r,q)){p.data.push(String(r))}}else{if(r.length>0){j.each(r,function(s,
+t){if(!m(t,q)){p.data.push(String(t))}})}}f()}, find=function m(r,p){var q=[];if(p==="local"){q=c.localClippedCoupons.da
+ta}else{if(p==="regular"){q=c.regularClippedCoupons.data}else{j.each(c,function(t,s){q=q.concat(s.data)})}}return(j.inAr
+ray(String(r),q)>=0)}, getSelectAll=function n(q){var p;if(q==="local"){p=j.jStorage.get("select-all-flag-local")||false
+}else{p=j.jStorage.get("select-all-flag-regular")||false}return p}}, initializeUser=function k(){var l=f();if(l===false)
+{b("unnecessary");h()}else{j()}}, PodVideo=function (d){if(d!=a&&a(this.init)){this.init.apply(this,arguments)}}, PodDue
+t=function (d){if(d!=a&&a(this.init)){this.init.apply(this,arguments)}}, offeroftheweek={onReady=function g(l){b=this||l
+;e();if(typeof APP_COUPONSINC.contextData.offeroftheweek!=="undefined"&&f.length>0){a=h(d(".mod-offeroftheweek .pod"),AP
+P_COUPONSINC.contextData.offeroftheweek);a.bindEventHandlers()}i.bind("couponsinc:sortStatus",j)}}, htmlEncode=function 
+(a){return CI_jQuery("<div/>").text(a).html()}, updateUserInformation=function c(r,m){var n=APP_COUPONSINC.contextData,q
+=r.did||0,o=r.printersupport||0,p="/ajax/init",l={controller:n.controller,pathName:n.pathName,did:q,isPrinterSupported:o
+,justCookies:m,pid:n.pid,nid:n.nid,zid:n.zid};if(APP_COUPONSINC.clippedCouponStorage){l.local=APP_COUPONSINC.clippedCoup
+onStorage.get("local").join(",");l.coupons=APP_COUPONSINC.clippedCouponStorage.get("coupons").join(",");l.zipcodes=APP_C
+OUPONSINC.clippedCouponStorage.get("zips").join(",")}if(n.currentCategoryID!=="0"){l.catid=n.currentCategoryID}if(APP_CO
+UPONSINC.zipcode){l.zip=APP_COUPONSINC.zipcode.getZipCode()}if(n.campaignName!==""){l.campaignName=n.campaignName;l.camp
+aignType=n.campaignType}if(APP_COUPONSINC.gallery&&APP_COUPONSINC.gallery.getCurrentStoreName){l.storename=APP_COUPONSIN
+C.gallery.getCurrentStoreName()}e.ajax({url:p+window.location.search,type:"post",dataType:"json",data:l,context:{updateC
+ookiesOnly:m},timeout:5000,error:function(t,s,u){APP_COUPONSINC.log("updateUserInformation: error "+s+", POST="+JSON.str
+ingify(l));b("failed");h()},success:APP_COUPONSINC.userinit.initializeUserSuccess})}, getURLParameter=function (b,e){var
+ a="",c,d;if(typeof e==="undefined"){a=window.location.search}else{c=e.split("?");if(typeof c[1]!=="undefined"){a="?"+c[
+1]}}d=(RegExp("(\\?|&)"+b+"=?(.*?)(&|$)","i").exec(a)||[,,null])[2];if(d!==null){d=unescape(d)}return d}, flyout_account
+={isEmailValid=function a(l){var k="/'\\ \";:?!()[]{}^|,",f=k.length,e=l.length,j,h,g;if((l=="")||(b.trim(l)=="")){retur
+n false}else{for(g=0;g<f;g++){if(l.indexOf(k.charAt(g),0)>-1){return false}}for(g=0;g<e;g++){if(l.charCodeAt(g)>127){ret
+urn false}}j=l.indexOf("@",0);if(j==-1){return false}if(j==0){return false}if(l.indexOf("@",j+1)>-1){return false}if(l.i
+ndexOf(".",j)==-1){return false}if(l.indexOf("@.",0)!=-1){return false}if(l.indexOf(".@",0)!=-1){return false}if(l.index
+Of("..",0)!=-1){return false}h=l.substring(l.lastIndexOf(".")+1);if(h.length<2||h.length>3){switch(h){case"travel":case"
+museum":case"info":case"name":case"aero":case"asia":case"coop":case"jobs":case"mobi":break;default:return false}}}return
+ true}, isPswValid=function d(e){var f=/[\"]/ig;if(e.replace(/\s/g,"")==""){return false}else{if((e.search(/\s/gi))!=-1)
+{return false}if((e.search(f))!=-1){return false}if((e.length<4)||(e.length>10)){return false}}return true}, isNameValid
+=function c(g,e){var k="&<>[]\\;:?!@#$%^*()+",f=k.length,j=g.length,h;if(!(e)&&((g=="")||(b.trim(g)==""))){return false}
+else{for(h=0;h<f;h++){if(g.indexOf(k.charAt(h),0)>-1){return false}}}return true}}, browser_feature={placeholder=true, t
+ouchEnabled=false}, formatCurrency=function (a){var b=0;if(a%100===0){b=a/100}else{b=(a/100).toFixed(2)}return"$"+b}, pr
+intform={setupEventHandlers=function j(){i(document).bind("couponsinc:clipped",d.incrementFormValues);i(document).bind("
+couponsinc:unclipped",d.decrementFormValues);i(document).bind("couponsinc:printcoupons",n);i(document).bind("couponsinc:
+userinitialized",c);i(document).bind("couponsinc:printerror",k)}, onReady=function g(){b=this;e.onReady(b)}, incrementFo
+rmValues=function c(i,j){var k=0,h=a.val().split(",");if(j.all){a.val("")}f.each(j.podIds,function(m,l){if(f.inArray(l,h
+)<0){a.val(a.val()+l+",")}})}, decrementFormValues=function d(i,j){var h=0;if(j.all){a.val("");return}f.each(j.podIds,fu
+nction(l,k){a.val(a.val().replace((k+","),""))})}}, contextData={User={IsLoggedIn=0, Stores=[], SuperSaver=0, DetectedZi
+p=33603, CouponClubMember={Status=0, Newsletter=0, ExpDate=01/01/1900}}, fbAppId=2412324777, actionName=index, deferred=
+{js={default=[//cdn.cpnscdn.com/nv.web/combo/js/e6cae44f7518b7b6c1d67f2fb1c0ae14.js], IE 8=[//cdn.cpnscdn.com/nv.web/com
+bo/js/406623c84bce8125aa5994569459bd98.js]}, css={default=[//cdn.cpnscdn.com/nv.web/combo/css/5ceb8841416bc79e06b6fed53b
+be2b4d.css]}}, userCheck=0GQW5xQkDxR8LlAUJ9RCOGvIe7RJjxuJ2gHCtsYfmK0, pathName=coupons, zid=iq37, CouponClubEnabled=0, b
+righttag={siteid=i54834M}, featuredToday={featuredBrand=[], regularFeatures={12410={startDate=2013-11-11, prgmId=12410, 
+prgmCoupons={18041137={fid=12366131, summary=SAVE $1.00, entityData={}, sid=05675005, restricted=false, image={height=10
+0, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/137/18041137.gif}, couponId=18041137, ty
+pe=0, couponText=, catlevel2=402, catlevel3=441, details=on the purchase of any two (2) HORMEL¨ Bacon Toppings, catlevel
+1=107, couponImgUrl=, value=100, brand=HORMEL¨, catdesc1=Foods}, 18041199={fid=05319469, summary=SAVE 55¢, entityData={}
+, sid=12721729, restricted=false, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_I
+mageCache/199/18041199.gif}, couponId=18041199, type=0, couponText=null, catlevel2=407, catlevel3=468, details=on the pu
+rchase of any one (1) HORMEL¨ COUNTRY CROCK¨ Side Dish, catlevel1=107, couponImgUrl=, value=55, brand=HORMEL¨, catdesc1=
+Foods}, 18041381={fid=07376059, summary=SAVE $2.00, entityData={}, sid=10665321, restricted=false, image={height=100, wi
+dth=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/381/18041381.gif}, couponId=18041381, type=0,
+ couponText=null, catlevel2=416, catlevel3=491, details=on the purchase of any one (1) HORMEL¨ CURE 81¨ Boneless Ham, ca
+tlevel1=107, couponImgUrl=, value=200, brand=HORMEL¨, catdesc1=Foods}, 18042172={fid=07605567, summary=SAVE $1.00, entit
+yData={}, sid=10436604, restricted=false, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_
+Cache/_ImageCache/172/18042172.gif}, couponId=18042172, type=0, couponText=Save $1.00 on the purchase of any one (1) HOR
+MEL&reg; ALWAYS TENDER&reg; flavored meats, catlevel2=416, catlevel3=491, details=on the purchase of any one (1) HORMEL¨
+ ALWAYS TENDER¨ flavored meats, catlevel1=107, couponImgUrl=, value=100, brand=HORMEL¨, catdesc1=Foods}}, prgmType=1, pr
+gmText=, endDate=2013-11-17, imgWidth=0, prgmAddnText=, redirectURL=, useCustmCoupImg=0, prgmImgURL=http://cdn.cpnscdn.c
+om/static.coupons.com/images/cprimages/410/12410_1_prgId.gif, prgmPllwImgURL=http://cdn.cpnscdn.com/static.coupons.com/i
+mages/cprimages/410/12410_2_prgId.gif, prgmName=Hormel - FT - 11-11-13, imgHeight=0}, 12419={startDate=2013-11-11, prgmI
+d=12419, prgmCoupons={17984187={fid=07029800, summary=SAVE $1.50, entityData={}, sid=10954386, restricted=false, image={
+height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/187/17984187.gif}, couponId=179
+84187, type=0, couponText=null, catlevel2=299, catlevel3=5493, details=on Any ONE (1) package of HUGGIES¨ Snug & Dry Dia
+pers, catlevel1=5491, couponImgUrl=, value=150, brand=HUGGIES¨, catdesc1=Baby & Toddler}, 17984174={fid=12234124, summar
+y=SAVE $2.00, entityData={}, sid=05750049, restricted=false, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.
+coupons.com/COS20/_Cache/_ImageCache/174/17984174.gif}, couponId=17984174, type=0, couponText=null, catlevel2=299, catle
+vel3=5493, details=on Any ONE (1) package of HUGGIES¨ Overnites Diapers, catlevel1=5491, couponImgUrl=, value=200, brand
+=HUGGIES¨, catdesc1=Baby & Toddler}}, prgmType=1, prgmText=HUGGIES&reg;, endDate=2013-11-17, imgWidth=0, prgmAddnText=#,
+ redirectURL=, useCustmCoupImg=0, prgmImgURL=http://cdn.cpnscdn.com/static.coupons.com/images/cprimages/419/12419_1_prgI
+d.gif, prgmPllwImgURL=http://cdn.cpnscdn.com/static.coupons.com/images/cprimages/419/12419_2_prgId.gif, prgmName=Huggies
+ - FT - 11/11/13, imgHeight=0}, 12418={startDate=2013-11-11, prgmId=12418, prgmCoupons={18054147={fid=04776637, summary=
+65¢ OFF, entityData={}, sid=13277509, restricted=false, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupo
+ns.com/COS20/_Cache/_ImageCache/147/18054147.gif}, couponId=18054147, type=0, couponText=null, catlevel2=305, catlevel3=
+347, details=ONE Tide¨ to Go Pen (excludes trial/travel size), catlevel1=105, couponImgUrl=, value=65, brand=TIDE¨, catd
+esc1=Household}, 18054150={fid=10063269, summary=$1.00 OFF, entityData={}, sid=07990880, restricted=false, image={height
+=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/150/18054150.gif}, couponId=18054150,
+ type=0, couponText=null, catlevel2=305, catlevel3=349, details=ONE Tide¨ Boost (excludes trial/travel size), catlevel1=
+105, couponImgUrl=, value=100, brand=TIDE¨, catdesc1=Household}, 18054121={fid=09790516, summary=$2.00 OFF, entityData={
+}, sid=08263604, restricted=false, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_
+ImageCache/121/18054121.gif}, couponId=18054121, type=0, couponText=null, catlevel2=305, catlevel3=350, details=ONE Tide
+¨ PODS 31ct or larger (excludes trial/travel size), catlevel1=105, couponImgUrl=, value=200, brand=TIDE¨, catdesc1=House
+hold}, 18067023={fid=04628966, summary=$1.00 OFF, entityData={}, sid=13438056, restricted=false, image={height=100, widt
+h=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/023/18067023.gif}, couponId=18067023, type=0, c
+ouponText=null, catlevel2=305, catlevel3=347, details=ONE Tide¨ Washing Machine Cleaner (excludes trial/travel size), ca
+tlevel1=105, couponImgUrl=, value=100, brand=TIDE¨, catdesc1=Household}}, prgmType=1, prgmText=Tide, endDate=2013-11-17,
+ imgWidth=0, prgmAddnText=#, redirectURL=, useCustmCoupImg=0, prgmImgURL=http://cdn.cpnscdn.com/static.coupons.com/image
+s/cprimages/418/12418_1_prgId.gif, prgmPllwImgURL=http://cdn.cpnscdn.com/static.coupons.com/images/cprimages/418/12418_2
+_prgId.gif, prgmName=P&G - FT - 11/11/13, imgHeight=0}}}, tid=ALK111318383166FC4DB25172109, ads={adtechs={items={leavebe
+hind_schedule={srcUrl=//adserver.adtechus.com/addyn/3.0/5345.1/2793060/0/16/ADTECH}}}, leavebehind_schedule=1, adblobs={
+srcUrl=//couponbar.coupons.com/adblob.asp, items={shortstack={srcUrl=, rotateOnPagination=1, rotateOnLayoutStateChanged=
+, height=115, width=620, generateFrameSrcOnPageload=1, rotatePrevious=0, isInHouse=1}, leavebehind={srcUrl=, rotateOnPag
+ination=0, rotateOnLayoutStateChanged=once, height=90, width=970, generateFrameSrcOnPageload=0, rotatePrevious=0, isInHo
+use=0}, leaderboard={srcUrl=, rotateOnPagination=1, rotateOnLayoutStateChanged=, height=90, width=728, generateFrameSrcO
+nPageload=1, rotatePrevious=0, isInHouse=0}, mrec={srcUrl=, rotateOnPagination=1, rotateOnLayoutStateChanged=, height=25
+0, width=300, generateFrameSrcOnPageload=1, rotatePrevious=1, isInHouse=0}}}}, bid=ALK111318383166FC4DB25172109, pbid=, 
+zip=33603, hero={rotationInterval=8, autoRotation=off}, gallery={preClippedCids=false, sharerURL=http://sharer.coupons.c
+om/sharer.asp?pid=13306&nid=10&zid=iq37, storeid=null, pagenum_max_count=10, scroll_load_distance_px=0, qid=, allPodsIDs
+=[17976386, 18080108, 18067122, 18040173, 18079374, 18069045, 18007174, 18032100, 18020061, 18086185, 18043084, 18025124
+, 18038382, 18012168, 18038392, 18028109, 18005086, 18069075, 18084033, 18069026, 18049394, 18008150, 18066373, 17999086
+], podNote=Savings Club Offer, slide_duration=0, cid=, artificial_load_delay_ms=0, max_manual_load=9999, correctquery=, 
+brands=[], seg=null, q=, podsPerPage=24, podCache={18069026={summary=SAVE $1.00, fid=13021766, cclass=0, link_text=null,
+ onCard=null, printCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/C
+OS20/_Cache/_ImageCache/, type=0, podId=18069026, brandId=3977, prodinfo=when you buy any box of BARILLA Pasta AND any j
+ar of BARILLA Pasta Sauce, catlevel2=546, catlevel3=549, details=when you buy any box of BARILLA Pasta AND any jar of BA
+RILLA Pasta Sauce, catlevel1=107, activated=2013-11-10T00:01:00-0800, burstText=null, value=100, catdesc3=Spaghetti, slo
+t=-280, videoURL=null, catid=549, cpnuse=null, catdesc2=Pasta, catdesc1=Foods, sid=05047259, storeIds=[], expiration=201
+4-01-10T23:59:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.c
+om/COS20/_Cache/_ImageCache/026/18069026.gif}, catdesc=Spaghetti, category=null, actiontaken=null, printed=null, brand=B
+ARILLA , companyId=1055, isuff=026/18069026.gif}, 18084033={summary=SAVE $1.00, fid=07674326, cclass=0, link_text=null, 
+onCard=null, printCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/CO
+S20/_Cache/_ImageCache/, type=0, podId=18084033, brandId=16657, prodinfo=off any two (2) JackÕs¨ Pizzas, catlevel2=552, 
+catlevel3=5472, details=off any two (2) JackÕs¨ Pizzas, catlevel1=107, activated=2013-11-08T00:01:00-0800, burstText=nul
+l, value=100, catdesc3=Frozen Pizza, slot=-284, videoURL=null, catid=5472, cpnuse=null, catdesc2=Frozen Foods, catdesc1=
+Foods, sid=10409706, storeIds=[], expiration=2014-01-07T23:59:00-0800, link_url=null, restricted=0, image={height=100, w
+idth=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/033/18084033.gif}, catdesc=Frozen Pizza, cat
+egory=null, actiontaken=null, printed=null, brand=JACK'S¨ Pizza, companyId=113511, isuff=033/18084033.gif}, 18025124={su
+mmary=SAVE $1.00 ON TWO, fid=12653066, cclass=0, link_text=null, onCard=null, printCount=null, disclaimer=null, limitRea
+ched=0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/, type=0, podId=18025124, brandI
+d=14140, prodinfo=when you buy TWO BOXES any flavor General Mills cereals listed: Cinnamon Toast Crunch¨ ¥ Cocoa Puffs¨ 
+¥ Lucky Charms¨ ¥ Trix¨ ¥, catlevel2=399, catlevel3=531, details=when you buy TWO BOXES any flavor General Mills cereals
+ listed: Cinnamon Toast Crunch¨ ¥ Cocoa Puffs¨ ¥ Lucky Charms¨ ¥ Trix¨ ¥, catlevel1=107, activated=2013-11-01T00:01:00-0
+700, burstText=null, value=100, catdesc3=Ready to Eat Cereal, slot=-360, videoURL=null, catid=531, cpnuse=null, catdesc2
+=Breakfast, catdesc1=Foods, sid=05372057, storeIds=[], expiration=2013-12-30T23:59:00-0800, link_url=null, restricted=0,
+ image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/124/18025124.gif}, catd
+esc=Ready to Eat Cereal, category=null, actiontaken=null, printed=null, brand=Big G Cereals¨, companyId=100032, isuff=12
+4/18025124.gif}, 18043084={summary=Save 55¢, fid=07168078, cclass=0, link_text=null, onCard=null, printCount=null, discl
+aimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/, type=0, po
+dId=18043084, brandId=4481, prodinfo=on the purchase of any one (1) SKIPPY¨ peanut butter or peanut butter spread produc
+t, catlevel2=426, catlevel3=518, details=on the purchase of any one (1) SKIPPY¨ peanut butter or peanut butter spread pr
+oduct, catlevel1=107, activated=2013-11-13T00:01:00-0800, burstText=null, value=55, catdesc3=Spreads, slot=-364, videoUR
+L=null, catid=518, cpnuse=null, catdesc2=Spreads, catdesc1=Foods, sid=10875005, storeIds=[], expiration=2014-03-02T23:59
+:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cac
+he/_ImageCache/084/18043084.gif}, catdesc=Spreads, category=null, actiontaken=null, printed=null, brand=SKIPPY¨, company
+Id=1069, isuff=084/18043084.gif}, 18020061={summary=SAVE 40¢ ON THREE, fid=09402816, cclass=0, link_text=null, onCard=nu
+ll, printCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/_Cach
+e/_ImageCache/, type=0, podId=18020061, brandId=3410, prodinfo=when you buy any THREE Pillsbury¨ Crescent Dinner Rolls (
+excludes Twin Pack), catlevel2=397, catlevel3=528, details=when you buy any THREE Pillsbury¨ Crescent Dinner Rolls (excl
+udes Twin Pack), catlevel1=107, activated=2013-11-01T00:01:00-0700, burstText=null, value=40, catdesc3=Rolls & Buns, slo
+t=-385, videoURL=null, catid=528, cpnuse=null, catdesc2=Baked Goods, catdesc1=Foods, sid=08617244, storeIds=[], expirati
+on=2013-12-30T23:59:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.cou
+pons.com/COS20/_Cache/_ImageCache/061/18020061.gif}, catdesc=Rolls & Buns, category=null, actiontaken=null, printed=null
+, brand=Pillsbury¨, companyId=1065, isuff=061/18020061.gif}, 18040173={summary=SAVE $1.00, fid=12591187, cclass=0, link_
+text=null, onCard=null, printCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.cou
+pons.com/COS20/_Cache/_ImageCache/, type=0, podId=18040173, brandId=10459, prodinfo=on any ONE (1) CRACKER BARREL Cheese
+ Product 6-8 oz. (Chunks, Snacking Bars or Cracker Cuts), catlevel2=401, catlevel3=440, details=on any ONE (1) CRACKER B
+ARREL Cheese Product 6-8 oz. (Chunks, Snacking Bars or Cracker Cuts), catlevel1=107, activated=2013-10-21T00:01:00-0700,
+ burstText=null, value=100, catdesc3=Cheese, slot=-437, videoURL=null, catid=440, cpnuse=null, catdesc2=Cheese, catdesc1
+=Foods, sid=05448985, storeIds=[], expiration=2013-12-23T23:59:00-0800, link_url=null, restricted=0, image={height=100, 
+width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/173/18040173.gif}, catdesc=Cheese, category
+=null, actiontaken=null, printed=null, brand=CRACKER BARREL, companyId=1052, isuff=173/18040173.gif}, 18086185={summary=
+Buy 1, Get 1 FREE!, fid=11107634, cclass=0, link_text=null, onCard=null, printCount=null, disclaimer=null, limitReached=
+0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/, type=0, podId=18086185, brandId=579
+1, prodinfo=Buy any 1 M&MÕS¨ Brand Pretzel Chocolate Candies, get 1 FREE!  (1.14 Ð 1.74 oz.) (Max Value $1.29), catlevel
+2=403, catlevel3=545, details=Buy any 1 M&MÕS¨ Brand Pretzel Chocolate Candies, get 1 FREE!  (1.14 Ð 1.74 oz.) (Max Valu
+e $1.29), catlevel1=107, activated=2013-11-11T00:01:00-0800, burstText=BOGO, value=129, catdesc3=Chocolate, slot=-382, v
+ideoURL=null, catid=545, cpnuse=null, catdesc2=Confections, catdesc1=Foods, sid=06978550, storeIds=[], expiration=2013-1
+2-10T23:59:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/
+COS20/_Cache/_ImageCache/185/18086185.gif}, catdesc=Chocolate, category=null, actiontaken=null, printed=null, brand=M&M'
+S¨ Brand, companyId=113305, isuff=185/18086185.gif}, 18012168={summary=SAVE 40¢ ON THREE, fid=09605865, cclass=0, link_t
+ext=null, onCard=null, printCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.coup
+ons.com/COS20/_Cache/_ImageCache/, type=0, podId=18012168, brandId=3410, prodinfo=when you buy THREE CANS any size/varie
+ty Pillsbury¨ Refrigerated Grands!¨ OR Grands! Jr.¨ Biscuits, catlevel2=421, catlevel3=502, details=when you buy THREE C
+ANS any size/variety Pillsbury¨ Refrigerated Grands!¨ OR Grands! Jr.¨ Biscuits, catlevel1=107, activated=2013-11-01T00:0
+1:00-0700, burstText=null, value=40, catdesc3=Refrigerated Dough, slot=-344, videoURL=null, catid=502, cpnuse=null, catd
+esc2=Refrigerated Dough, catdesc1=Foods, sid=08406302, storeIds=[], expiration=2013-12-30T23:59:00-0800, link_url=null, 
+restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/168/180121
+68.gif}, catdesc=Refrigerated Dough, category=null, actiontaken=null, printed=null, brand=Pillsbury¨, companyId=1065, is
+uff=168/18012168.gif}, 17976386={summary=SAVE 99¢, fid=13017968, cclass=0, link_text=null, onCard=null, printCount=null,
+ disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/, type
+=0, podId=17976386, brandId=18007, prodinfo=on any ONE (1) KRAFT FRESH TAKE Cheese & Breadcrumb Mix, catlevel2=423, catl
+evel3=504, details=on any ONE (1) KRAFT FRESH TAKE Cheese & Breadcrumb Mix, catlevel1=107, activated=2013-10-31T00:01:00
+-0700, burstText=null, value=99, catdesc3=Bread and Cracker Crumbs, slot=-448, videoURL=null, catid=504, cpnuse=null, ca
+tdesc2=Sauces/ Seasonings, catdesc1=Foods, sid=04958417, storeIds=[], expiration=2013-12-30T23:59:00-0800, link_url=null
+, restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/386/1797
+6386.gif}, catdesc=Bread and Cracker Crumbs, category=null, actiontaken=null, printed=null, brand=KRAFT FRESH TAKE, comp
+anyId=1052, isuff=386/17976386.gif}, 18032100={summary=SAVE 50¢, fid=04985559, cclass=0, link_text=null, onCard=null, pr
+intCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_Ima
+geCache/, type=0, podId=18032100, brandId=10409, prodinfo=on any ONE (1) KRAFT Mayo or MIRACLE WHIP Dressing, catlevel2=
+410, catlevel3=477, details=on any ONE (1) KRAFT Mayo or MIRACLE WHIP Dressing, catlevel1=107, activated=2013-11-08T00:0
+1:00-0800, burstText=null, value=50, catdesc3=Mayonnaise/Sandwich Spread, slot=-408, videoURL=null, catid=477, cpnuse=nu
+ll, catdesc2=Dressings, catdesc1=Foods, sid=13046540, storeIds=[], expiration=2014-01-06T23:59:00-0800, link_url=null, r
+estricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/100/1803210
+0.gif}, catdesc=Mayonnaise/Sandwich Spread, category=null, actiontaken=null, printed=null, brand=KRAFT Mayo or MIRACLE W
+HIP, companyId=1052, isuff=100/18032100.gif}, 18066373={summary=SAVE $1.00, fid=13041487, cclass=0, link_text=null, onCa
+rd=null, printCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/
+_Cache/_ImageCache/, type=0, podId=18066373, brandId=24311, prodinfo=on ANY one (1) Perdue¨ FROZEN Chicken Product, catl
+evel2=418, catlevel3=495, details=on ANY one (1) Perdue¨ FROZEN Chicken Product, catlevel1=107, activated=2013-10-28T00:
+01:00-0700, burstText=null, value=100, catdesc3=Frozen, slot=-248, videoURL=null, catid=495, cpnuse=null, catdesc2=Poult
+ry, catdesc1=Foods, sid=05024885, storeIds=[], expiration=2013-12-31T23:59:00-0800, link_url=null, restricted=0, image={
+height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/373/18066373.gif}, catdesc=Froz
+en, category=null, actiontaken=null, printed=null, brand=PERDUE¨ Frozen Fully Cooked Chicken, companyId=70515, isuff=373
+/18066373.gif}, 18069045={summary=SAVE $1.00, fid=13148809, cclass=0, link_text=null, onCard=null, printCount=null, disc
+laimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/, type=0, p
+odId=18069045, brandId=25799, prodinfo=when you buy any 2 bags of HERSHEY'S¨ KISSES¨ Brand Chocolates 9.4 oz. or larger,
+ catlevel2=403, catlevel3=545, details=when you buy any 2 bags of HERSHEY'S¨ KISSES¨ Brand Chocolates 9.4 oz. or larger,
+ catlevel1=107, activated=2013-10-31T00:01:00-0700, burstText=null, value=100, catdesc3=Chocolate, slot=-424, videoURL=n
+ull, catid=545, cpnuse=null, catdesc2=Confections, catdesc1=Foods, sid=04920235, storeIds=[], expiration=2013-12-31T23:5
+9:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Ca
+che/_ImageCache/045/18069045.gif}, catdesc=Chocolate, category=null, actiontaken=null, printed=null, brand=HERSHEY'S¨ KI
+SSES¨, companyId=70576, isuff=045/18069045.gif}, 18028109={summary=Save $0.75, fid=06885861, cclass=0, link_text=null, o
+nCard=null, printCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS
+20/_Cache/_ImageCache/, type=0, podId=18028109, brandId=24661, prodinfo=on any (1) Dunkin' Donuts¨ coffee creamer quart 
+(any flavor), catlevel2=218, catlevel3=230, details=on any (1) Dunkin' Donuts¨ coffee creamer quart (any flavor), catlev
+el1=103, activated=2013-10-01T00:01:00-0700, burstText=null, value=75, catdesc3=Creamer & Flavor, slot=-307, videoURL=nu
+ll, catid=230, cpnuse=null, catdesc2=Coffee Additives, catdesc1=Beverages, sid=11142247, storeIds=[], expiration=2013-12
+-31T23:59:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/C
+OS20/_Cache/_ImageCache/109/18028109.gif}, catdesc=Creamer & Flavor, category=null, actiontaken=null, printed=null, bran
+d=Dunkin' Donuts¨, companyId=70614, isuff=109/18028109.gif}, 18005086={summary=SAVE 75¢ ON TWO, fid=11512582, cclass=0, 
+link_text=null, onCard=null, printCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insigh
+t.coupons.com/COS20/_Cache/_ImageCache/, type=0, podId=18005086, brandId=3409, prodinfo=when you buy TWO Betty Crocker¨ 
+Ready to Spread Frosting, Supreme Brownie Mix, Dessert Bar Mix, Supermoist¨ Cake Mix, OR 17.5 OZ, catlevel2=398, catleve
+l3=530, details=when you buy TWO Betty Crocker¨ Ready to Spread Frosting, Supreme Brownie Mix, Dessert Bar Mix, Supermoi
+st¨ Cake Mix, OR 17.5 OZ, catlevel1=107, activated=2013-11-01T00:01:00-0700, burstText=null, value=75, catdesc3=Cake Dec
+orating and Frosting, slot=-306, videoURL=null, catid=530, cpnuse=null, catdesc2=Baking Supplies, catdesc1=Foods, sid=06
+492503, storeIds=[], expiration=2013-12-30T23:59:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=
+//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/086/18005086.gif}, catdesc=Cake Decorating and Frosting, 
+category=null, actiontaken=null, printed=null, brand=Betty Crocker¨, companyId=1065, isuff=086/18005086.gif}, 18079374={
+summary=SAVE $2.00, fid=05910224, cclass=0, link_text=null, onCard=null, printCount=null, disclaimer=null, limitReached=
+0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/, type=0, podId=18079374, brandId=176
+80, prodinfo=On any TRESemmŽ¨ Product (Excludes trial & travel sizes and gift packs), catlevel2=118, catlevel3=173, deta
+ils=On any TRESemmŽ¨ Product (Excludes trial & travel sizes and gift packs), catlevel1=101, activated=2013-11-01T00:01:0
+0-0700, burstText=null, value=200, catdesc3=Other, slot=-434, videoURL=null, catid=173, cpnuse=null, catdesc2=Hair Care,
+ catdesc1=Personal Care, sid=12169149, storeIds=[], expiration=2014-01-31T23:59:00-0800, link_url=null, restricted=0, im
+age={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/374/18079374.gif}, catdesc
+=Other, category=null, actiontaken=null, printed=null, brand=TRESemmŽ¨, companyId=1069, isuff=374/18079374.gif}, 1808010
+8={summary=SAVE $1.00, fid=12494199, cclass=0, link_text=null, onCard=null, printCount=null, disclaimer=null, limitReach
+ed=0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/, type=0, podId=18080108, brandId=
+25889, prodinfo=ON THE PURCHASE OF ANY ONE (1) APPLEGATE¨ ITEM, catlevel2=555, catlevel3=936, details=ON THE PURCHASE OF
+ ANY ONE (1) APPLEGATE¨ ITEM, catlevel1=107, activated=2013-11-06T00:01:00-0800, burstText=null, value=100, catdesc3=Org
+anic Foods, slot=-442, videoURL=null, catid=936, cpnuse=null, catdesc2=Organic Foods, catdesc1=Foods, sid=05585908, stor
+eIds=[], expiration=2014-11-30T23:59:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=//cdn.cpnscd
+n.com/insight.coupons.com/COS20/_Cache/_ImageCache/108/18080108.gif}, catdesc=Organic Foods, category=null, actiontaken=
+null, printed=null, brand=Applegate¨, companyId=120692, isuff=108/18080108.gif}, 18007174={summary=SAVE 40¢ ON TWO, fid=
+08569897, cclass=0, link_text=null, onCard=null, printCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cd
+n.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/, type=0, podId=18007174, brandId=3410, prodinfo=when you buy
+ any TWO Pillsbury¨ Sweet Rolls OR Grands!¨ Sweet Rolls, catlevel2=421, catlevel3=502, details=when you buy any TWO Pill
+sbury¨ Sweet Rolls OR Grands!¨ Sweet Rolls, catlevel1=107, activated=2013-11-01T00:01:00-0700, burstText=null, value=40,
+ catdesc3=Refrigerated Dough, slot=-422, videoURL=null, catid=502, cpnuse=null, catdesc2=Refrigerated Dough, catdesc1=Fo
+ods, sid=09437276, storeIds=[], expiration=2013-12-30T23:59:00-0800, link_url=null, restricted=0, image={height=100, wid
+th=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/174/18007174.gif}, catdesc=Refrigerated Dough,
+ category=null, actiontaken=null, printed=null, brand=Pillsbury¨, companyId=1065, isuff=174/18007174.gif}, 18067122={sum
+mary=$2.00 OFF, fid=12212975, cclass=0, link_text=null, onCard=null, printCount=null, disclaimer=null, limitReached=0, i
+magePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/, type=0, podId=18067122, brandId=25759, 
+prodinfo=ONE (1) 14ct carton of Dunkin' Donuts¨ K-Cup¨ packs, any variety (Redeemable only at Dunkin' Donuts¨ Restaurant
+s), catlevel2=217, catlevel3=559, details=ONE (1) 14ct carton of Dunkin' Donuts¨ K-Cup¨ packs, any variety (Redeemable o
+nly at Dunkin' Donuts¨ Restaurants), catlevel1=103, activated=2013-11-04T00:01:00-0800, burstText=null, value=200, catde
+sc3=Coffee, slot=-438, videoURL=null, catid=559, cpnuse=null, catdesc2=Coffee, catdesc1=Beverages, sid=05854146, storeId
+s=[], expiration=2013-11-27T23:59:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.c
+om/insight.coupons.com/COS20/_Cache/_ImageCache/122/18067122.gif}, catdesc=Coffee, category=null, actiontaken=null, prin
+ted=null, brand=Dunkin' Donuts¨, companyId=113992, isuff=122/18067122.gif}, 18008150={summary=SAVE 50¢ ON TWO, fid=06919
+582, cclass=0, link_text=null, onCard=null, printCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpn
+scdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/, type=0, podId=18008150, brandId=11944, prodinfo=when you buy TWO
+ CANS any flavor Progresso¨ Soups, catlevel2=425, catlevel3=516, details=when you buy TWO CANS any flavor Progresso¨ Sou
+ps, catlevel1=107, activated=2013-11-01T00:01:00-0700, burstText=null, value=50, catdesc3=Soup, slot=-258, videoURL=null
+, catid=516, cpnuse=null, catdesc2=Soup, catdesc1=Foods, sid=11088567, storeIds=[], expiration=2013-12-30T23:59:00-0800,
+ link_url=null, restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_Image
+Cache/150/18008150.gif}, catdesc=Soup, category=null, actiontaken=null, printed=null, brand=Progresso¨, companyId=1065, 
+isuff=150/18008150.gif}, 17999086={summary=Save $1.00, fid=10249278, cclass=0, link_text=null, onCard=null, printCount=n
+ull, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/, 
+type=0, podId=17999086, brandId=3423, prodinfo=on any (1) 4-pack or (5) 7 oz. Frusion¨ Smoothies (Find it in the yogurt 
+section), catlevel2=221, catlevel3=235, details=on any (1) 4-pack or (5) 7 oz. Frusion¨ Smoothies (Find it in the yogurt
+ section), catlevel1=103, activated=2013-08-15T00:01:00-0700, burstText=null, value=100, catdesc3=Shelf Stable, slot=-24
+4, videoURL=null, catid=235, cpnuse=null, catdesc2=Juice Smoothie, catdesc1=Beverages, sid=07749807, storeIds=[], expira
+tion=2013-12-31T23:59:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.c
+oupons.com/COS20/_Cache/_ImageCache/086/17999086.gif}, catdesc=Shelf Stable, category=null, actiontaken=null, printed=nu
+ll, brand=Frusion¨, companyId=103270, isuff=086/17999086.gif}, 18038392={summary=Save $1.50, fid=10226092, cclass=0, lin
+k_text=null, onCard=null, printCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.c
+oupons.com/COS20/_Cache/_ImageCache/, type=0, podId=18038392, brandId=3451, prodinfo=On one (1) InnovAsian Cuisine froze
+n entree kit, side dish or appetizer., catlevel2=552, catlevel3=5464, details=On one (1) InnovAsian Cuisine frozen entre
+e kit, side dish or appetizer., catlevel1=107, activated=2013-09-30T00:01:00-0700, burstText=null, value=150, catdesc3=D
+inner: Multi-Serve, slot=-342, videoURL=null, catid=5464, cpnuse=null, catdesc2=Frozen Foods, catdesc1=Foods, sid=078122
+99, storeIds=[], expiration=2013-12-31T23:59:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=//cd
+n.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/392/18038392.gif}, catdesc=Dinner: Multi-Serve, category=null
+, actiontaken=null, printed=null, brand=InnovAsian Cuisine, companyId=105070, isuff=392/18038392.gif}, 18049394={summary
+=Buy 2, Get 1 Free, fid=09684951, cclass=0, link_text=null, onCard=null, printCount=null, disclaimer=null, limitReached=
+0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/, type=0, podId=18049394, brandId=256
+67, prodinfo=on any SNICKERS¨, TWIX¨, M&M'S¨, DOVE¨, MILKY WAY¨, 3 MUSKETEERS¨ or BITES¨ Brand (1.14 oz. - 2.83 oz.), ca
+tlevel2=403, catlevel3=545, details=on any SNICKERS¨, TWIX¨, M&M'S¨, DOVE¨, MILKY WAY¨, 3 MUSKETEERS¨ or BITES¨ Brand (1
+.14 oz. - 2.83 oz.), catlevel1=107, activated=2013-10-11T00:01:00-0700, burstText=B2G1, value=129, catdesc3=Chocolate, s
+lot=-271, videoURL=null, catid=545, cpnuse=null, catdesc2=Confections, catdesc1=Foods, sid=08364442, storeIds=[], expira
+tion=2014-01-31T23:59:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.c
+oupons.com/COS20/_Cache/_ImageCache/394/18049394.gif}, catdesc=Chocolate, category=null, actiontaken=null, printed=null,
+ brand=MARS Chocolate Brands, companyId=100468, isuff=394/18049394.gif}, 18038382={summary=SAVE $1.00, fid=07474291, ccl
+ass=0, link_text=null, onCard=null, printCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com
+/insight.coupons.com/COS20/_Cache/_ImageCache/, type=0, podId=18038382, brandId=21295, prodinfo=on ANY one (1) PERDUE¨ S
+hort Cuts¨ Carved Breast strips, catlevel2=418, catlevel3=494, details=on ANY one (1) PERDUE¨ Short Cuts¨ Carved Breast 
+strips, catlevel1=107, activated=2013-09-30T00:01:00-0700, burstText=null, value=100, catdesc3=Fresh, slot=-347, videoUR
+L=null, catid=494, cpnuse=null, catdesc2=Poultry, catdesc1=Foods, sid=10564090, storeIds=[], expiration=2014-01-10T23:59
+:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cac
+he/_ImageCache/382/18038382.gif}, catdesc=Fresh, category=null, actiontaken=null, printed=null, brand=PERDUE¨ SHORT CUTS
+¨, companyId=70515, isuff=382/18038382.gif}, 18069075={summary=Save $2.00, fid=08916772, cclass=0, link_text=null, onCar
+d=null, printCount=null, disclaimer=null, limitReached=0, imagePrefix=http://cdn.cpnscdn.com/insight.coupons.com/COS20/_
+Cache/_ImageCache/, type=0, podId=18069075, brandId=25232, prodinfo=on any 1 (ONE) 12-count or 16-count box of Cafe Esca
+pes¨ K-Cup¨ packs, catlevel2=217, catlevel3=559, details=on any 1 (ONE) 12-count or 16-count box of Cafe Escapes¨ K-Cup¨
+ packs, catlevel1=103, activated=2013-11-01T00:01:00-0700, burstText=null, value=200, catdesc3=Coffee, slot=-294, videoU
+RL=null, catid=559, cpnuse=null, catdesc2=Coffee, catdesc1=Beverages, sid=09152302, storeIds=[], expiration=2013-12-31T2
+3:59:00-0800, link_url=null, restricted=0, image={height=100, width=80, url=//cdn.cpnscdn.com/insight.coupons.com/COS20/
+_Cache/_ImageCache/075/18069075.gif}, catdesc=Coffee, category=null, actiontaken=null, printed=null, brand=Cafe Escapes¨
+ K-Cup¨ packs, companyId=113796, isuff=075/18069075.gif}}, storename=null, brand=null, catId=null, totalPods=321, sel=nu
+ll}, nid=10, mod=, crid=, currentCategoryID=0, pid=13306, couponcarrier={total={availableTotal={count=321, value=85634},
+ clippedTotal=0, clippableTotal={count=317, value=84484}}}, userinitStatus=unnecessary, plid=, webtrends={dcsid=dcsgotkf
+mvz5bdaw2fopfohr9_4l6s}, offeroftheweek=[{summary=SAVE $1.00, fid=07605567, startDate=2013-11-13, prgmType=2, endDate=20
+13-11-13, type=0, podId=18042172, couponText=Save $1.00 on the purchase of any one (1) HORMEL&reg; ALWAYS TENDER&reg; fl
+avored meats, catlevel2=416, catlevel3=491, details=on the purchase of any one (1) HORMEL¨ ALWAYS TENDER¨ flavored meats
+, catlevel1=107, redirectURL=, useCustmCoupImg=0, prgmImgURL=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCa
+che/172/18042172.gif, value=100, catdesc1=Foods, entityData={}, sid=10436604, prgmId=12413, prgmCoupons=[{couponText=Sav
+e $1.00 on the purchase of any one (1) HORMEL&reg; ALWAYS TENDER&reg; flavored meats, couponImgUrl=, couponId=18042172}]
+, restricted=false, image={url=//cdn.cpnscdn.com/insight.coupons.com/COS20/_Cache/_ImageCache/172/18042172.gif}, prgmTex
+t=, imgWidth=0, couponId=18042172, prgmAddnText=, prgmPllwImgURL=http://cdn.cpnscdn.com/static.coupons.com/images/cprima
+ges/413/12413_2_prgId.gif, brand=HORMEL¨, prgmName=Hormel - OOTW - 11-13-2013, imgHeight=0}], controller=coupons}, isInB
+othArrays=function (b,a){var c=0;CI_jQuery.each(b,function(d,e){if(CI_jQuery.inArray(e,a)>-1){c+=1}});return(c>0)}, layo
+ut={animateMiniLogo=function B(H){window.setTimeout(function(){C.css(H)},100)}, fixScrollTop=function d(){h.scrollTop(b+
+1);c.animateMiniLogo({top:0})}, processScroll=function o(){var H=k.scrollTop(),I;I=(H>d)?r:q;switch(b){case n:if(I===r){
+if((E<H)&&(H<(E+g))){z(s)}else{if(H>=(E+g)){z(w)}}}break;case s:if(I===r){if(H>=E+g){z(w)}}else{if(H<E){z(n)}}break;case
+ w:if(I===q){if((E<H)&&(H<(E+g))){z(s)}else{if(H<=E){z(n)}}}break}d=H}, HERO_MARGIN=8, onReady=function g(){c=this;f();a
+.onReady(c)}}, PodCPC=function (d){if(d!=a&&a(this.init)){this.init.apply(this,arguments)}}, promos={onReady=function e(
+g){c=g||this;d(".promos button",a).bind("click",b);d(".promos img",a).bind("click",b)}}, removeQueryParameter=function (
+f,a){var c=f.split("?"),d=c[0],e=[],b;if((typeof c[1]==="undefined")||(typeof a==="undefined")){return f}if(c[1]===""){r
+eturn d}c=c[1].split("&");for(b in c){if((c[b].toLowerCase()).indexOf(a.toLowerCase())!==0){e.push(c[b])}}if(e.length===
+0){return d}else{return d+"?"+e.join("&")}}, fblike={onLoad=function a(){var c=b(".mod-fblike");APP_COUPONSINC.facebook.
+init(function(){FB.XFBML.parse(c[0])})}}, PodDuetDeferred=function (d){if(d!=a&&a(this.init)){this.init.apply(this,argum
+ents)}}, ads={generateFrame=function d(o,n,m){if(o===null||o.length===0){return}var p=a.generateBlobsSrcUrl(n,m);o.sibli
+ngs().remove();o.css("height",n.height);o.css("width",n.width);o.attr("src",p)}, isPageLoad=function g(){return e}, setu
+pEventHandlers=function e(){a.setupEventHandlers();h.bind("couponsinc:layoutstatechanged",g)}, generateBlobsSrcUrl=funct
+ion k(m,l){var q="",n=d.pid+d.zid+d.nid,p=(m.srcUrl!=="")?m.srcUrl:d.ads.adblobs.srcUrl,o=p+"?AdSize={width}x{height}&pz
+n={pzn}&req={timestamp}&zip={zip}&did={mac}&spage={pg}&npage={npage}";if(typeof d.User!=="undefined"){o=p+"?AdSize={widt
+h}x{height}&pzn={pzn}&req={timestamp}&zip={zip}&did={mac}&spage={pg}&npage={npage}&kvhouse={kvhouse}&kvss={kvss}&kvcb={k
+vcb}"}q=o.replace("{width}",m.width).replace("{height}",m.height).replace("{pzn}",n).replace("{timestamp}",(new Date()).
+getTime()).replace("{zip}",c).replace("{mac}",i).replace("{pg}",l.kvspage).replace("{npage}",l.kvpagenum).replace("{kvho
+use}",l.kvhouse).replace("{kvss}",l.kvss).replace("{kvcb}",l.kvcb);return q}, onReady=function i(m){if(typeof b.ads==="u
+ndefined"){return}a=m||this;a.setupEventHandlers()}, rotateSingleAd=function j(n,m){if(a.isPageLoad()&&!(m.generateFrame
+SrcOnPageload)){return}if(!(a.isPageLoad())&&!(m.rotateOnPagination)){return}a.generateAdRefresh(n,m)}, generatekeyObjec
+t=function e(q,m){var l={},o,r,n,p;if(a.indexOf("/")>-1){o=(a.substring(a.lastIndexOf("/")+1,a.lastIndexOf(".")))}else{o
+=(a.substring(a.lastIndexOf("\\")+1,a.lastIndexOf(".")))}r=(typeof APP_COUPONSINC_toolbar_installed!=="undefined"&&APP_C
+OUPONSINC_toolbar_installed===true)?"1":"0";n=(typeof d.User!=="undefined")?d.User.SuperSaver.toString():"0";l={kvspage:
+o,kvpagenum:m.toString(),kvhouse:q,kvss:n,kvcb:r};return l}, loadAdBlobs=function g(){var m=b.ads.adblobs;if(typeof m===
+"undefined"){return}e.each(m.items,function(o,n){a.rotateSingleAd(o,n)})}, generateAdRefresh=function l(q,p){var s,v,t,u
+,r,o=b.generatekeyObject(p.isInHouse,m);if(p.rotatePrevious){t=h(".pages .page")[m-1];s=h(".container-"+q+" iframe",t);u
+=h(".pages .page")[j-1];v=h(".container-"+q+" iframe",u);r=b.generatekeyObject("1",j);b.generateFrame(v,p,r)}else{s=h(".
+container-"+q+" iframe")}b.generateFrame(s,p,o)}, getLeaveBehindPromise=function i(){b=d.Deferred();if(typeof c.ads!=="u
+ndefined"){var j=c.ads.leavebehind_schedule;if(typeof j!=="undefined"&&j===1){b.resolve()}else{b.reject()}}else{b.reject
+()}return b.promise()}}, dialog={open=function k(x,w){var u,v=null,y;e=h(window).scrollTop();l();v=h("."+f).html(w).attr
+("class",f);h(window).scrollTop(e);u=q(x);y=n(x);x=h.extend({},d,x,{position:u,open:y});v.dialog(x);v.dialog("open");ret
+urn v}, isModalOpen=function t(){return(h("."+f).dialog("option","modal")===true)}, defaultOption={dialogClass=flyout-ou
+ter, animatedModal=true, height=auto, width=auto, resizable=false, closeText=&times, autoOpen=false, modal=false, dragga
+ble=false, close=function l(w){var v=h("."+j+" ."+f);if(v.children().length>0){if(t()){g()}try{v.dialog("close").unbind(
+).dialog("destroy").empty().addClass("hidden")}catch(u){}}}}, close=function l(w){var v=h("."+j+" ."+f);if(v.children().
+length>0){if(t()){g()}try{v.dialog("close").unbind().dialog("destroy").empty().addClass("hidden")}catch(u){}}}}, PodFeat
+uredtoday=function (d){if(d!=a&&a(this.init)){this.init.apply(this,arguments)}}, getUserRestrData=function (){var h=CI_j
+Query.cookie("UserRestr"),i=h?h.split("&"):"",l=h?{}:null,c,b,m,e,f,g,k,o,a,j,n,d;CI_jQuery.each(i,function(p){c=i[p];b=
+c.split("=");m=b[0];e=b[1];f=e.split("#");g=parseInt(f[0].split(":")[1],10);k=f[1];if(g>0){o=k.split("$");o=o.slice(0,g)
+;a={};CI_jQuery.each(o,function(q){j=o[q];n=j.split("|");d=n[0];a[d]={printed:n[1],actiontaken:n[2],printCount:n[3],onCa
+rd:n[4]}})}else{a=null}l[m]={count:g,pods:a}});return l}, Pod=function (d){if(d!=a&&a(this.init)){this.init.apply(this,a
+rguments)}}, gallery={handleSelectAll=function M(){var ad=G(".selectall-chk",x),ac="0",ae={podIds:[],all:true};if(ad.is(
+":checked")){ac="1";APP_COUPONSINC.clipall.openDialog()}else{ac="0";g.trigger("couponsinc:unclipped",ae)}}, TOOLS_POSITI
+ON_RIGHT_OFFSET=-10, currPageNum=0, handleMoreClick=function Q(){var ad=f(x),ac=w.gallery.podsPerPage;e.load(ad,ac)}, re
+solveGalleryInitStatus=function S(ac){if(typeof ac!=="undefined"){t.resolveWith({params:ac})}else{t.resolve()}}, onReady
+=function X(ac){e=ac||this;y();g.bind("couponsinc:userinitialized",l);g.bind("couponsinc:unclipped",z);g.bind("couponsin
+c:windowScrolled",e.handleWindowScrolled);if(G.jStorage){G.jStorage.deleteKey("sort-control-new-message")}R.resize(u);D(
+);e.init();u()}, init=function V(){w=APP_COUPONSINC.contextData;if(typeof APP_COUPONSINC.contextData.gallery==="undefine
+d"){return}n(APP_COUPONSINC.contextData.gallery.podCache,0);if((G("#couponsinc-gallery-selectall").length>0)&&(APP_COUPO
+NSINC.contextData.controller!=="local")&&(APP_COUPONSINC.clippedCouponStorage.getSelectAll("coupons")===true)){G("#coupo
+nsinc-gallery-selectall").prop("checked",true)}if(typeof w.gallery==="undefined"){a=true}else{if(f(x)>=w.gallery.totalPo
+ds){a=true}else{a=false}}E=false;d()}, POD_BOUNDARY=.pod:not(".mod-offeroftheweek .pod"), getCurrentStoreName=function L
+(){var ac=APP_COUPONSINC.contextData;if(ac.gallery[o]){return ac.gallery[o]}return""}, isEndReached=function i(){return 
+a}, handleWindowScrolled=function K(){var ac=G(window).scrollTop();if(ac===0){G(document).trigger("couponsinc:changepage
+",{page:0,eventOrigin:{type:"click",target:"selector",dir:"backward"}})}}, getPodInstances=function h(){return c}, getGa
+lleryInitStatus=function q(){return t.promise()}, load=function O(ae,ad){if(E){return}E=true;d();var ac={controller:w.co
+ntroller,actionName:w.actionName,action:"paginate",pathName:w.pathName,offset:ae,count:ad,pagenum:e.currPageNum+1,pid:w.
+pid,nid:w.nid,zid:w.zid,cid:w.gallery.cid,sel:w.gallery.sel,seg:w.gallery.seg};if(APP_COUPONSINC.clippedCouponStorage){a
+c.local=(w.controller!=="savingscard")?APP_COUPONSINC.clippedCouponStorage.get("local").join(","):"",ac.coupons=(w.contr
+oller!=="savingscard")?APP_COUPONSINC.clippedCouponStorage.get("coupons").join(","):"",ac.zipcodes=(w.controller!=="savi
+ngscard")?APP_COUPONSINC.clippedCouponStorage.get("zips").join(","):""}if(w.gallery.catId){ac.catid=w.gallery.catId}if(A
+PP_COUPONSINC.zipcode){ac.zip=APP_COUPONSINC.zipcode.getZipCode()}if(w.gallery[F]){ac[F]=w.gallery[F]}if(w.gallery[o]){a
+c[o]=w.gallery[o]}if(w.gallery[P]){ac[P]=w.gallery[P]}if(w.brandId){ac.fr="ci_www_brand"}G.ajax({url:"/ajax/gallery/",ty
+pe:"POST",data:ac,dataType:"json",context:{offset:ae},success:e.handleLoadSuccess,fail:Z})}, handleLoadSuccess=function 
+H(ai,ae,al){var aj=this.offset,ag=G(".pages",x),ah=G(".page",ag).length,af="",ak=ai.html.gallery,ad=G(ak),ac,am=ai.data.
+gallery.totalPods;w.gallery.totalPods=am;af=p.replace("{pagenum}",e.currPageNum+2).replace("{start}",aj+1).replace("{end
+}",aj+f(ad)).replace("{total}",am);G(af).appendTo(ag);ad=G(ak).appendTo(ag);ac=G(e.POD_BOUNDARY,ad);k(ac,ai.data.gallery
+.podCache);if(f(x)>=am){a=true}E=false;d();e.currPageNum+=1;g.trigger("couponsinc:changepage",{page:e.currPageNum,eventO
+rigin:{type:"click",target:"selector",dir:"forward"}})}}, printcontrol={getPluginInstance=function (){if(h===null){l()}r
+eturn h}, checkPrinter=function (){var n=false;if(APP_COUPONSINC.printcontrol.isPluginHappy()===false){APP_COUPONSINC.lo
+g("checkPrinter: print control not happy. StatusCode="+APP_COUPONSINC.printcontrol.getStatusCode());return false}try{n=h
+.PerformAction("cpnprt2","CheckPrinter","Y|","|",false);APP_COUPONSINC.log("checkPrinter: print control returned checkPr
+inter="+n);n=(n==="true"||n===true)}catch(o){APP_COUPONSINC.log("checkPrinter: Exception "+o.name+": "+o.message)}return
+ n}, getDeviceID=function (o){var p=0,n=0,s=(typeof o==="undefined")?1:o,r=[-98];if(APP_COUPONSINC.printcontrol.isPlugin
+Happy()===false){APP_COUPONSINC.log("getDeviceID: print control is NOT happy. StatusCode="+APP_COUPONSINC.printcontrol.g
+etStatusCode());return -1}try{p=h.PerformAction("cpnprt2","GetDeviceID","Y|","|",false);n=APP_COUPONSINC.printcontrol.ge
+tStatusCode();if((n===0)&&(p.toString().toLowerCase()!=="error")){APP_COUPONSINC.log("getDeviceID: print control returne
+d getDeviceID="+p+". StatusCode="+APP_COUPONSINC.printcontrol.getStatusCode());p=parseInt(p,10)}else{if((d.inArray(n,r)>
+=0)&&(s>0)){s-=1;p=APP_COUPONSINC.printcontrol.getDeviceID(s)}else{p=-1;APP_COUPONSINC.log("getDeviceID: deviceID is ERR
+OR. StatusCode="+APP_COUPONSINC.printcontrol.getStatusCode())}}}catch(q){APP_COUPONSINC.log("getDeviceID: Exception "+q.
+name+": "+q.message)}return p}, isPluginHappy=function (){var n;if(h===null){return false}if(typeof APP_COUPONSINC.print
+control.getStatusCode()==="undefined"){return false}n=APP_COUPONSINC.printcontrol.getStatusCode();if(((n!==-1000)&&(n!==
+0))&&(n!==-1503)){return false}if(/mac/i.test(navigator.platform)===true){h.PerformAction("cpnprt2","GetDeviceID","Y|","
+|",false);n=APP_COUPONSINC.printcontrol.getStatusCode();if(n===-1503){return false}}return true}, isPluginReady=function
+ (){var o,n=false;try{o=APP_COUPONSINC.printcontrol.getStatusCode();n=(o!==1)}catch(p){n=false;APP_COUPONSINC.log("isPlu
+ginReady: Exception "+p.name+": "+p.message)}return n}, getStatusCode=function (){return(h.GetStatusCode)?h.GetStatusCod
+e():h.StatusCode}}, lighthouse={fireBeacon=function d(e){if(typeof e==="undefined"){return}queryString=a(e);new Image().
+src="//lh.coupons.net/bcn"+queryString}}, featuredtoday={onReady=function g(k){d=k||this;f();i(0)}, clipAllFeatures=func
+tion a(){var l=[],k=[];e.each(APP_COUPONSINC.featuredtoday.podObjs,function(m,n){if(!e(n.pod).hasClass("limited")&&!e(n.
+pod).hasClass("clipped")){n.clipCoupon();k.push(n.data.podId);l.push(n)}});e(document).trigger("couponsinc:clipped",{pod
+Ids:k,podObjects:l,source:"ft-clip-all"})}, podObjs=[], dialogEventHandlers=function h(){e(".mod-featuredtoday-flyout .c
+lose-button").on("click",function(){APP_COUPONSINC.dialog.close()});e(".mod-featuredtoday-flyout .ft .cta-button").on("c
+lick",function(){d.clipAllFeatures()})}}, PodDeferred=function (d){if(d!=a&&a(this.init)){this.init.apply(this,arguments
+)}}, PodPrintable=function (d){if(d!=a&&a(this.init)){this.init.apply(this,arguments)}}, couponcarrier={getCarrierInitSt
+atus=function j(){return d.promise()}, showTransferEffect=function a(l){var j=f(".pod-image",l),k="couponcarrier-transfe
+r-clipped",i=f(".print-button .number",b),m=f(".saved-coupons-button .number",b).is(":visible")?f(".saved-coupons-button
+ .number",b):f(".loyalty-card-button",b);j.effect("transfer",{to:i.length>0?i:m,className:k},400);b.trigger("couponsinc:
+clip-effect-started",{podNode:l,className:k})}, setupEventHandlers=function n(){g(".print-button",e).bind("click",q);r.b
+ind("couponsinc:clipped",APP_COUPONSINC.couponcarrier.handleClippedUnclipped);r.bind("couponsinc:unclipped",APP_COUPONSI
+NC.couponcarrier.handleClippedUnclipped)}, onReady=function h(){c=this;b.onReady(c)}, clippedCouponsThisTab=[], handleCl
+ippedUnclipped=function a(n,r){var q=APP_COUPONSINC.contextData.couponcarrier.total.clippableTotal,m=(APP_COUPONSINC.con
+textData.controller==="local")?"local":"coupons",p=(APP_COUPONSINC.contextData.controller==="local")?"coupons":"local",k
+=APP_COUPONSINC.clippedCouponStorage.get(p).length,l=f(".cta-button",g).data("current-count"),o;if(r.all===true){if(n.ty
+pe==="couponsinc:clipped"){q=r.clippableTotal||q;o=k+q.count;APP_COUPONSINC.couponcarrier.clippedCouponsThisTab=r.podIds
+}else{o=k;APP_COUPONSINC.couponcarrier.clippedCouponsThisTab=[]}}else{if(r.partial===true){o=l+r.podIds.length;APP_COUPO
+NSINC.couponcarrier.clippedCouponsThisTab=APP_COUPONSINC.clippedCouponStorage.get(m)}else{if(r.podObjects.length===0){re
+turn}f.each(r.podObjects,function(s,u){if(u&&u.data){var t=u.data.podId,v=f.inArray(t,APP_COUPONSINC.couponcarrier.clipp
+edCouponsThisTab);if(n.type==="couponsinc:clipped"&&(v<0)){l+=1;APP_COUPONSINC.couponcarrier.clippedCouponsThisTab.push(
+t);if(s===0&&r.podObjects.length===1){c.showTransferEffect(r.podObjects[0].pod)}}else{if((n.type==="couponsinc:unclipped
+")&&(v>=0)){l-=1;APP_COUPONSINC.couponcarrier.clippedCouponsThisTab.splice(f.inArray(t,APP_COUPONSINC.couponcarrier.clip
+pedCouponsThisTab),1)}}}else{APP_COUPONSINC.log("couponcarrier_cart.js handleClippedUnclipped() did not receive valid po
+dObj data.")}});o=l}}e(o)}, initializeDone=function j(o,p,t){this.deferredObject.resolveWith(o);var k=o.add.count,n=o.ad
+d.cids,l=d.data("current-count"),q=APP_COUPONSINC.contextData.controller,u=(q==="local")?"local":"regular",r=(q==="local
+")?"regular":"local",m=APP_COUPONSINC.clippedCouponStorage.get(r).length,s=0;s=m+l+k;e(s);APP_COUPONSINC.couponcarrier.c
+lippedCouponsThisTab=n;APP_COUPONSINC.clippedCouponStorage.add(n,u);APP_COUPONSINC.clippedCouponStorage.remove(o.remove.
+cids,u)}}, htmlDecode=function (a){return CI_jQuery("<div/>").html(a).text()}, getClippedPodIds=function d(p){var q=[];i
+f(p==="local"){q=c.localClippedCoupons.data}else{if(p==="all"){j.each(c,function(s,r){q=q.concat(r.data)})}else{if(p==="
+zips"){q=a.data}else{q=c.regularClippedCoupons.data}}}return q.slice()}, isASubsetOfB=function (d,c){var k=0,h=d.length,
+g=c.length,l=0,f,e;for(f=0;f<h;f+=1){for(e=0;e<g;e+=1){if(d[f]===c[e]){l+=1}}}return l===h}, categories={showTeasersHide
+Categories=function d(){j("categories-no-teasers","categories-show-teasers")}, onReady=function i(n){a=n||this;l.bind("c
+ouponsinc:userinitialized",g);l.bind("couponsinc:windowScrolled",e);m()}, hideTeasersShowCategories=function k(){j("cate
+gories-show-teasers","categories-no-teasers")}, setupEvenHandlers=function c(){f(".show-more",h).click(a.hideTeasersShow
+Categories);f(".show-less",h).click(a.showTeasersHideCategories)}}, PodVideoDeferred=function (d){if(d!=a&&a(this.init))
+{this.init.apply(this,arguments)}}}
+]
