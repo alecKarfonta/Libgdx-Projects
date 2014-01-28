@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -36,7 +37,9 @@ import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
 import com.badlogic.gdx.physics.box2d.joints.MouseJoint;
 import com.badlogic.gdx.physics.box2d.joints.MouseJointDef;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
@@ -55,6 +58,7 @@ public class NewtonsCannon implements Screen {
 	private Stage stage;
 	private Table table;
 	private Skin skin;
+	private Group backgroundGroup, foregroundGroup;
 	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch;
 	private ArrayList<Body> destroyQueue;
@@ -74,9 +78,9 @@ public class NewtonsCannon implements Screen {
 	private int bottom = -(height/2/zoom);
 	
 	// solar system stuff
-	float cannonWidth;
-	Vector2 cannonBallVector;
-	DistanceJoint earthCannonJoint;
+	private float cannonWidth;
+	private Vector2 cannonBallVector;
+	private DistanceJoint earthCannonJoint;
 	private final float G = (float) (6.67384); // fiddle wtih gravity so the orbit speed can be greater
 	
 	// UI stuff
@@ -89,6 +93,7 @@ public class NewtonsCannon implements Screen {
 	private BodyDef bodyDef;
 	private FixtureDef fixtureDef;
 	private Shape shape;
+	private Texture backgroundTexture;
 	private MouseJoint mouseJoint;   
 	private Body hitBody[] = new Body[2]; // up to three bodies could be clicked at once
 	private Body tempBody;
@@ -113,6 +118,7 @@ public class NewtonsCannon implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
+		
 		//earth.getBody().setLinearVelocity(0,0); // ad hoc
 
 		world.step(TIMESTEP, VELOCITYITERATIONS, POSITIONITERATONS);
@@ -127,7 +133,7 @@ public class NewtonsCannon implements Screen {
 		// add each sprite
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
-		
+				
 		world.getBodies(tmpBodies);
 		for (Body body : tmpBodies) {
 			if (body.getUserData() != null ) {
@@ -135,8 +141,8 @@ public class NewtonsCannon implements Screen {
 					timeSinceUpdate += delta;
 					if (timeSinceUpdate > 2) {
 						timeSinceUpdate = 0;
-						earth.getBody().setLinearVelocity(0, 0);
-						earth.getBody().setTransform(0, 0, 0);
+						//earth.getBody().setLinearVelocity(0, 0);
+						//earth.getBody().setTransform(0, 0, 0);
 					}
 					// apply gravity to each object that is not the earth or the cannon
 					if (!((ModelData)body.getUserData()).getName().equals("earth") && !((ModelData)body.getUserData()).getName().equals("cannon")) {
@@ -153,6 +159,7 @@ public class NewtonsCannon implements Screen {
 				}
 			}
 		}
+
 		
 		spriteBatch.end();
 		
@@ -190,16 +197,24 @@ public class NewtonsCannon implements Screen {
 		
 		// setup a camera with a 1:1 ratio to the screen contents
 		camera = new OrthographicCamera(width, height);
-		camera.zoom = 1;
 		
 		// position the camera at the center of the screen
 		camera.position.set(0,0,0);
+		
+		//backgroundGroup = new Group();
+		foregroundGroup = new Group();
+		
+		backgroundTexture = new Texture("data/Images/deepfield.jpg");
+		backgroundTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 	
 	public void createUI() {
 		stage = new Stage(width, height, true);
 		table = new Table(skin);
 		
+		//backgroundGroup.setZIndex(0);
+		//backgroundGroup.addActor(new Image(new TextureRegion(backgroundTexture, 0 ,0, 1024, 768)));
+		//foregroundGroup.setZIndex(1);
 		forceSliderLabel = new Label("Force", skin, "medWhite");
 		
 		/**/	// xSlider
@@ -224,6 +239,10 @@ public class NewtonsCannon implements Screen {
 		table.row().expand();
 		table.add(forceSliderLabel).align(Align.top);
 		table.add(forceSlider).align(Align.top);
+		//foregroundGroup.addActor(table);
+		
+		
+		//stage.addActor(backgroundGroup);
 		stage.addActor(table);
 	}
 	
@@ -281,7 +300,7 @@ public class NewtonsCannon implements Screen {
 		
 		// create the moon, 1/3 the size of the earth
 		moon = new CelestialBody("moon", world, earth.getRadius() * 5f, 0, earth.getRadius() * .33f, 5.5f,
-				"data/Images/Planets/moon_real.png");
+				"data/Images/Planets/moon_real.png", MOON, (short) (EARTH | CANNONBALL));
 		// set it into orbit around the earth
 		Vector2 orbitVector = new Vector2();
 		orbitVector.y = 270;		// theta = 90 degrees
