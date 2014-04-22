@@ -1,0 +1,228 @@
+
+GravityGuy.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+enemies/lgm1
+  rotate: false
+  xy: 2, 84
+  size: 24, 39
+  orig: 24, 39
+  offset: 0, 0
+  index: 1
+enemies/lgm1
+  rotate: false
+  xy: 2, 43
+  size: 24, 39
+  orig: 24, 39
+  offset: 0, 0
+  index: 2
+enemies/lgm1
+  rotate: false
+  xy: 2, 2
+  size: 24, 39
+  orig: 24, 39
+  offset: 0, 0
+  index: 3
+
+GravityGuy2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+level/background
+  rotate: false
+  xy: 1284, 954
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+level/background
+  rotate: false
+  xy: 2, 134
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+level/background_floor
+  rotate: false
+  xy: 100, 232
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+level/background_floor
+  rotate: false
+  xy: 1284, 888
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+level/background_gate
+  rotate: false
+  xy: 1350, 954
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+level/background_light
+  rotate: false
+  xy: 2, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+level/block_active
+  rotate: false
+  xy: 166, 232
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+level/block_hazard
+  rotate: false
+  xy: 1284, 822
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+level/box
+  rotate: false
+  xy: 1350, 888
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+level/floor
+  rotate: false
+  xy: 1416, 954
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+level/itsFullOfStars
+  rotate: false
+  xy: 2, 298
+  size: 1280, 720
+  orig: 1280, 720
+  offset: 0, 0
+  index: -1
+level/ladder_end
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+level/ladder_middle
+  rotate: false
+  xy: 232, 232
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+level/ladder_start
+  rotate: false
+  xy: 2, 200
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+
+GravityGuy3.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+player/playerCrouch
+  rotate: false
+  xy: 2, 2
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+player/playerJumping
+  rotate: false
+  xy: 54, 7
+  size: 32, 45
+  orig: 32, 45
+  offset: 0, 0
+  index: -1
+player/playerRunning
+  rotate: false
+  xy: 88, 7
+  size: 32, 45
+  orig: 32, 45
+  offset: 0, 0
+  index: 1
+player/playerRunning
+  rotate: false
+  xy: 122, 7
+  size: 32, 45
+  orig: 32, 45
+  offset: 0, 0
+  index: 2
+player/playerRunning
+  rotate: false
+  xy: 156, 7
+  size: 32, 45
+  orig: 32, 45
+  offset: 0, 0
+  index: 3
+player/playerRunning
+  rotate: false
+  xy: 190, 7
+  size: 32, 45
+  orig: 32, 45
+  offset: 0, 0
+  index: 5
+player/playerRunning
+  rotate: false
+  xy: 224, 7
+  size: 32, 45
+  orig: 32, 45
+  offset: 0, 0
+  index: 6
+player/playerRunning
+  rotate: false
+  xy: 258, 7
+  size: 32, 45
+  orig: 32, 45
+  offset: 0, 0
+  index: 8
+player/playerStanding
+  rotate: false
+  xy: 292, 7
+  size: 32, 45
+  orig: 32, 45
+  offset: 0, 0
+  index: -1
+
+GravityGuy4.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+ui/healthGaugeBorder
+  rotate: false
+  xy: 2, 2
+  size: 178, 21
+  orig: 178, 21
+  offset: 0, 0
+  index: -1
+ui/healthGaugeInfill
+  rotate: false
+  xy: 182, 10
+  size: 173, 13
+  orig: 173, 13
+  offset: 0, 0
+  index: -1
+
+GravityGuy5.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+weapons/laserBlue
+  rotate: false
+  xy: 2, 2
+  size: 17, 31
+  orig: 17, 31
+  offset: 0, 0
+  index: -1
