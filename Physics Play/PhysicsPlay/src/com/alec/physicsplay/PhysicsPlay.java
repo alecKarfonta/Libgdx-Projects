@@ -1,6 +1,8 @@
 package com.alec.physicsplay;
 
+import com.alec.screens.MainMenu;
 import com.alec.screens.Play;
+import com.alec.screens.Splash;
 import com.badlogic.gdx.Game;
 
 public class PhysicsPlay extends Game {
@@ -8,7 +10,7 @@ public class PhysicsPlay extends Game {
 	
 	@Override
 	public void create() {		
-		setScreen(new Play());
+		setScreen(new MainMenu());
 	}
 
 	@Override

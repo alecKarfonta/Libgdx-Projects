@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.alec.bodies.Car;
 import com.alec.bodies.Crate;
 import com.alec.listeners.MyContactListener;
-import com.alec.physicsplay.MyMath;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -23,7 +22,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.ChainShape;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.QueryCallback;
@@ -53,17 +51,10 @@ public class Play implements Screen {
 	private int left = -(width/2/zoom);
 	private int top = height/2/zoom;
 	private int bottom = -(height/2/zoom);
-	private float groundHeight = bottom + 0.1f;
-	
-	// solar system stuff
-	private int orbitSpeed = 1;
-	private int orbitPosition = 1;
-	private int au = 1;
-	private final float G = (float) (6.67384 * Math.pow(10, -11));
+	private int groundHeight = bottom + 10;
 	
 	// world objects
 	private Car car;
-	private Body sun, earth;
 	private Body groundBody;
 	private BodyDef bodyDef;
 	private FixtureDef fixtureDef;
@@ -74,7 +65,6 @@ public class Play implements Screen {
 	private Body tempBody;
 	private Vector3 testPoint = new Vector3();
 	private Vector2 dragPosition = new Vector2();
-	private Vector2 forceVectorPolar = new Vector2();
 	
 	// filter bits
 	private final short BOUNDARY = 0x0001;
@@ -91,9 +81,9 @@ public class Play implements Screen {
 		// increment the world 
 		world.step(TIMESTEP, VELOCITYITERATIONS, POSITIONITERATONS);
 		
-		// position the camera at the center of the car
-		//camera.position.set(car.getChassis().getPosition().x, car.getChassis().getPosition().y, 0);
-		
+		// center the camera on the car
+		camera.position.set(car.getChassis().getPosition().x, car.getChassis().getPosition().y, 0);
+				
 		// update the camera
 		camera.update();
 		
@@ -102,7 +92,7 @@ public class Play implements Screen {
 		spriteBatch.begin();
 		
 		// render the car's effects
-		//car.render(spriteBatch, Gdx.graphics.getDeltaTime());
+		car.render(spriteBatch, Gdx.graphics.getDeltaTime());
 		
 		world.getBodies(tmpBodies);
 		for (Body body : tmpBodies) {
@@ -115,13 +105,7 @@ public class Play implements Screen {
 				}
 			}
 		}
-		Vector2 forceVectorPolar = new Vector2();
 		
-		forceVectorPolar.x = 100;	// magnitude
-		forceVectorPolar.y = MyMath.getAngleBetween(earth.getWorldCenter(), sun.getWorldCenter());		// direction
-		// apply a force of a variable magnitude in the direction of the orthogonal between the earth and sun center
-		earth.applyForceToCenter(MyMath.getRectCoords(forceVectorPolar), false);
-		System.out.println("Force Vector: (" + MyMath.getRectCoords(forceVectorPolar).x + "," + MyMath.getRectCoords(forceVectorPolar).y + ")");
 		spriteBatch.end();
 		
 		// render the screen
@@ -145,48 +129,6 @@ public class Play implements Screen {
 		
 		// setup a camera with a 1:1 ratio to the screen contents
 		camera = new OrthographicCamera(width, height);
-
-		// position the camera at the center of the screen
-		camera.position.set(0,0,0);
-		
-	}
-	
-	public void createSolarSystem() {
-		
-		BodyDef bodyDef = new BodyDef();
-		FixtureDef fixtureDef = new FixtureDef();
-		Shape shape;
-		bodyDef.type = BodyType.DynamicBody;
-		bodyDef.gravityScale = 0;
-		
-		fixtureDef.friction = .3f;
-		fixtureDef.restitution = 0;
-		
-		// sun
-		bodyDef.position.set(0,0);
-		shape = new CircleShape();
-		shape.setRadius(4);
-		fixtureDef.density = 100;
-		fixtureDef.shape = shape;
-		sun = world.createBody(bodyDef);
-		sun.createFixture(fixtureDef);
-		
-		// earth
-		shape = new CircleShape();
-		shape.setRadius(1);
-		fixtureDef.density = 1;
-		fixtureDef.shape = shape;
-		earth = world.createBody(bodyDef);
-		earth.createFixture(fixtureDef);
-		
-		Vector2 orbitVector = new Vector2(); // polar
-		orbitVector.x = au * 7;	// rho (orbit distance)
-		orbitVector.y = orbitPosition;
-		
-		earth.setTransform( MyMath.getRectCoords(orbitVector), 
-				(float)(Math.toRadians(MyMath.getAngleBetween(sun.getWorldCenter(), 
-										earth.getWorldCenter()))) );
-
 	}
 	
 	public void createGround() {
@@ -194,9 +136,27 @@ public class Play implements Screen {
 		bodyDef.type = BodyType.StaticBody;
 		bodyDef.position.set(0, 0);
 		
+		// ground shape
+		shape = new ChainShape();
+		
+		// make a triangle
+		((ChainShape)shape).createChain(new Vector2[] {new Vector2(0 - 4, groundHeight), 
+												new Vector2(0, groundHeight + 4),
+												new Vector2(0 + 4, groundHeight)} );
+		
+		// fixture definition
+		fixtureDef.shape = shape;
+		fixtureDef.friction = .5f;
+		fixtureDef.restitution = 0;
+		
+		// add the triangle to the world
+		world.createBody(bodyDef).createFixture(fixtureDef);
+		
 		// clear the shape for the next chain
 		shape = new ChainShape();
 		
+		// make the floor
+		groundHeight -= 50;
 		((ChainShape)shape).createChain(new Vector2[] {new Vector2(left - 100, groundHeight),
 												new Vector2(right + 100, groundHeight)} );
 		
@@ -257,7 +217,6 @@ public class Play implements Screen {
 	
 	@Override
 	public void show() {
-		
 		// create the variable many bodies will share
 		bodyDef = new BodyDef();
 		fixtureDef = new FixtureDef();
@@ -272,9 +231,8 @@ public class Play implements Screen {
 		// create each part of the screen
 		createWorld();
 		createGround();		
-		//createCharacter();
-		//createSomeBlocks();
-		createSolarSystem();
+		createCharacter();
+		createSomeBlocks();
 		
 		// handle the input
 		Gdx.input.setInputProcessor(new InputMultiplexer(
@@ -370,11 +328,9 @@ public class Play implements Screen {
                 }
                 return false;
         }
-		})); // car));	// second input adapter for the input multiplexer
+		}, car));	// second input adapter for the input multiplexer
 		
-		if (shape != null) {
-			shape.dispose();
-		}
+		shape.dispose();
 	}
  
 	@Override

@@ -25,6 +25,7 @@ public class LevelMenu implements Screen {
 	private Table table;
 	private Skin skin;
 
+
 	@Override
 	public void render(float delta) {
 		// clear the screen to black
